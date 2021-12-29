@@ -10,7 +10,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Paper from "@mui/material/Paper";
 import { useState } from "react";
-import uniqueid from "uniqueid";
+//import uniqueid from "uniqueid";
 import axios from "axios";
 export default function SugarLevel() {
   const [value, setValue] = useState(null);
@@ -23,12 +23,12 @@ export default function SugarLevel() {
 
   const postData = (sugarObject) => {
     axios
-      .post("https://3x2wq-3000.sse.codesandbox.io/sugar_data", {
-        id: uniqueid(),
+      .post("https://suoxappbackend.herokuapp.com/api/sugar", {
+        //id: uniqueid(),
         sugar_level: sugarObject.sugar_level,
-        sugar_taken_month: sugarObject.sugar_taken_month,
-        sugar_taken_date: sugarObject.sugar_taken_date,
-        sugar_taken_time: sugarObject.sugar_taken_time
+        month: sugarObject.sugar_taken_month,
+        date: sugarObject.sugar_taken_date,
+        time: sugarObject.sugar_taken_time
       })
       .then((resp) => {
         console.log(resp.data);

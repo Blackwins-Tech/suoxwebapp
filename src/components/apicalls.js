@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create instance called instance
 const instance = axios.create({
-  baseURL: "https://3x2wq-3000.sse.codesandbox.io/",
+  baseURL: "https://suoxappbackend.herokuapp.com/api/",
   headers: {
     "content-type": "application/json"
   }
@@ -12,7 +12,7 @@ export default {
   getData: () =>
     instance({
       method: "GET",
-      url: "/oxygen_data",
+      url: "/oxygen",
       params: {
         search: "parameter"
       },

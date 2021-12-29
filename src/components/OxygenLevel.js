@@ -9,7 +9,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
-import uniqueid from "uniqueid";
+//import uniqueid from "uniqueid";
 import axios from "axios";
 export default function OxygenLevel() {
   const [value, setValue] = useState(null);
@@ -23,13 +23,13 @@ export default function OxygenLevel() {
 
   const postOxygenData = (oxygenObj) => {
     axios
-      .post("https://3x2wq-3000.sse.codesandbox.io/oxygen_data", {
-        id: uniqueid(),
+      .post("https://suoxappbackend.herokuapp.com/api/oxygen", {
+        //id: uniqueid(),
         oxygen_level: oxygenObj.oxygen_level,
-        oxygen_taken_month: oxygenObj.oxygen_taken_month,
-        oxygen_taken_date: oxygenObj.oxygen_taken_date,
-        oxygen_taken_time: oxygenObj.oxygen_taken_time,
-        bpm_value: oxygenObj.bpm_value
+        month: oxygenObj.oxygen_taken_month,
+        date: oxygenObj.oxygen_taken_date,
+        time: oxygenObj.oxygen_taken_time,
+        bpm: oxygenObj.bpm_value
       })
       .then((resp) => {
         console.log(resp.data);
