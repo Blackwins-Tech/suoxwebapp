@@ -9,8 +9,10 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useState } from "react";
+import moment from "moment";
 //import uniqueid from "uniqueid";
 import axios from "axios";
+//import apicalls from "./apicalls";
 export default function OxygenLevel() {
   const [value, setValue] = useState(null);
   const [session, setSession] = useState("");
@@ -25,14 +27,14 @@ export default function OxygenLevel() {
     axios
       .post("https://suoxappbackend.herokuapp.com/api/oxygen", {
         //id: uniqueid(),
-        oxygen_level: oxygenObj.oxygen_level,
-        month: oxygenObj.oxygen_taken_month,
-        date: oxygenObj.oxygen_taken_date,
-        time: oxygenObj.oxygen_taken_time,
-        bpm: oxygenObj.bpm_value
+        oxygen_value: oxygenObj.oxygen_value,
+        month: oxygenObj.month,
+        date: oxygenObj.date,
+        time: oxygenObj.time,
+        bpm: oxygenObj.bpm
       })
       .then((resp) => {
-        console.log(resp.data);
+        alert(resp.data);
       })
       .catch((error) => {
         console.log(error);
@@ -40,7 +42,7 @@ export default function OxygenLevel() {
   };
 
   const onSave = (event) => {
-    var sessionValue = "";
+    /*var sessionValue = "";
     if (session === 10) {
       sessionValue = "Morning";
     } else if (session === 20) {
@@ -51,13 +53,17 @@ export default function OxygenLevel() {
       sessionValue = "Night";
     } else {
       sessionValue = "";
-    }
+    }*/
+    let timeValue = moment(value).format("hh:mm:ss");
+    let formattedDate = `${value.getUTCFullYear()}-${
+      value.getUTCMonth() + 1
+    }-${value.getUTCDate()}`;
     var oxygenObject = {
-      oxygen_level: oxygenLevel,
-      oxygen_taken_month: value.getUTCMonth() + 1,
-      oxygen_taken_date: value.getDate(),
-      oxygen_taken_time: sessionValue,
-      bpm_value: bpmValue
+      oxygen_value: oxygenLevel,
+      month: formattedDate,
+      date: value.getDate(),
+      time: timeValue,
+      bpm: bpmValue
     };
     //console.log(value);
 

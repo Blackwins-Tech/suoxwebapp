@@ -2,7 +2,7 @@ import axios from "axios";
 
 // Create instance called instance
 const instance = axios.create({
-  baseURL: "https://suoxappbackend.herokuapp.com/api/",
+  baseURL: "https://suoxappbackend.herokuapp.com/api",
   headers: {
     "content-type": "application/json"
   }
