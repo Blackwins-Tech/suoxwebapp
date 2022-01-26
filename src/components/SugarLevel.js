@@ -10,7 +10,8 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import Paper from "@mui/material/Paper";
 import { useState } from "react";
-import uniqueid from "uniqueid";
+import moment from "moment";
+//import uniqueid from "uniqueid";
 import axios from "axios";
 export default function SugarLevel() {
   const [value, setValue] = useState(null);
@@ -23,12 +24,12 @@ export default function SugarLevel() {
 
   const postData = (sugarObject) => {
     axios
-      .post("https://3x2wq-3000.sse.codesandbox.io/sugar_data", {
-        id: uniqueid(),
-        sugar_level: sugarObject.sugar_level,
-        sugar_taken_month: sugarObject.sugar_taken_month,
-        sugar_taken_date: sugarObject.sugar_taken_date,
-        sugar_taken_time: sugarObject.sugar_taken_time
+      .post("https://suoxappbackend.herokuapp.com/api/sugar", {
+        //id: uniqueid(),
+        sugar_value: sugarObject.sugar_value,
+        month: sugarObject.month,
+        date: sugarObject.date,
+        time: sugarObject.time
       })
       .then((resp) => {
         console.log(resp.data);
@@ -38,7 +39,7 @@ export default function SugarLevel() {
       });
   };
   const onSave = (event) => {
-    var sessionValue = "";
+    /*var sessionValue = "";
     if (session === 10) {
       sessionValue = "Morning";
     } else if (session === 20) {
@@ -49,15 +50,21 @@ export default function SugarLevel() {
       sessionValue = "Night";
     } else {
       sessionValue = "";
-    }
+    }*/
+
+    //moment(value).format("hh:mm:ss")
+    let timeValue = moment(value).format("hh:mm:ss");
+    let formattedDate = `${value.getUTCFullYear()}-${
+      value.getUTCMonth() + 1
+    }-${value.getUTCDate()}`;
     var sugarObject = {
-      sugar_level: sugarLevel,
-      sugar_taken_month: value.getUTCMonth() + 1,
-      sugar_taken_date: value.getDate(),
-      sugar_taken_time: sessionValue
+      sugar_value: sugarLevel,
+      month: value.getUTCMonth() + 1,
+      date: formattedDate,
+      time: timeValue
     };
     console.log(sugarObject);
-
+    console.log(value);
     postData(sugarObject);
   };
 
